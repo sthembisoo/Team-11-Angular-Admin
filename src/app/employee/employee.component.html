@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="modal"]').tooltip();
+  });
+</script>
+<!--Table-->
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2><b>Employee Details</b></h2>
+                        <br>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addandupdateemployeeModal" data-backdrop="static" data-keyboard="false" (click)="addClick()">Add Employee</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="search-box">
+                            <i class="material-icons">&#xE8B6;</i>
+                            <input type="text" class="form-control" placeholder="Search&hellip;" [(ngModel)]="EmployeeSearch" name="EmployeeSearch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Cell Number</th>
+                        <th>Physical Address</th>
+                        <th>Gender</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of EmployeeList | searchemployee:EmployeeSearch">
+                        <td>{{employee.EmployeeID}}</td>
+                        <td>{{employee.Name}}</td>
+                        <td>{{employee.Surname}}</td>
+                        <td>0{{employee.CellNumber}}</td>
+                        <td>{{employee.PhysicalAddress}}</td>
+                        <td>{{employee.Gender}}</td>
+                        <td>{{employee.Title}}</td>                        
+                        <td>
+                            <a style="cursor: pointer" href="#viewemployeeModal" (click)="viewClick(employee)" class="view" title="View" data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
+                            <a style="cursor: pointer" data-target="#addandupdateemployeeModal" class="edit" data-toggle="modal" (click)="editClick(employee)" data-backdrop="static" data-keyboard="false"><i class="material-icons" data-toggle="tooltip" title="Update">&#xE254;</i></a>
+						    <a style="cursor: pointer" (click)="deleteemployee(employee)" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>  
+</div>
+<!--Add and Update Modal-->
+<div id="addandupdateemployeeModal" class="modal fade" aria-labelledby="addupdateModallabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">						
+                <h4 class="modal-title" id="addupdateModallabel">{{ModalTitle}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeClick()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <app-addupdateemployee [eMployee]="eMployee" *ngIf="ActivateAddEditDepComp"></app-addupdateemployee>		
+            </div>
+        </div>
+    </div>
+</div>
+<!--View Modal-->
+<div id="viewemployeeModal" class="modal fade">
+	<div class="modal-dialog">
+    	<div class="modal-content">
+			<div class="modal-header">						
+				<h4 class="modal-title">Employee Details</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+            <div class="modal-body">
+                <div>
+                    <label for="Name" class="col-6 col-form-label">Name:</label>
+                    <label class="col-6 col-form-label">{{employeebyid.Name}}</label>
+                </div>
+                <div>
+                    <label for="Description" class="col-6 col-form-label">Surname:</label>
+                    <label class="col-6 col-form-label">{{employeebyid.Surname}}</label>
+                <div>
+                    <label for="ExpirationDate" class="col-6 col-form-label">Cell Number:</label>
+                    <label class="col-6 col-form-label">0{{employeebyid.CellNumber}}</label>
+                </div>		
+                <div>
+                    <label for="Quantity" class="col-6 col-form-label">Physical Address:</label>
+                    <label class="col-6 col-form-label">{{employeebyid.PhysicalAddress}}</label>
+                </div>
+                <div>
+                    <label for="InventoryType" class="col-6 col-form-label">Gender:</label>
+                    <label class="col-6 col-form-label">{{employeebyid.Gender}}</label>
+                </div>
+                <div>
+                    <label for="InventoryType" class="col-6 col-form-label">Title:</label>
+                    <label class="col-6 col-form-label">{{employeebyid.Title}}</label>
+                </div>
+                
+            </div>
+			<div class="modal-footer">
+				<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+			</div>
+		</div>
+	</div>
+    </div>
+</div>

@@ -28,7 +28,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/angular-calendar/css/angular-calendar.css",
+              "src/styles.css",
+              "./node_modules/@mobiscroll/angular/dist/css/mobiscroll.min.css",
+              "./node_modules/@boldreports/javascript-reporting-controls/Content/material/bold.reports.all.min.css"
             ],
             "scripts": []
           },
@@ -91,6 +94,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.css"
             ],
             "scripts": []

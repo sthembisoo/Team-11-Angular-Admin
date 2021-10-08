@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<form [formGroup]="addupdate" novalidate>
+    <div>
+        <label for="Name" class="col-4 col-form-label" >Name:</label>
+        <input formControlName="Name" class="col-4" type="text" class="form-control" [(ngModel)]="Name" name="Name" required>
+    </div>
+    <div *ngIf="addupdate.controls['Name'].invalid && addupdate.controls['Name'].touched" class="alert alert-danger">
+        <div *ngIf="addupdate.controls['Name'].errors?.required">
+            Name is required.
+        </div>
+    </div>
+    <div>
+        <label for="Description" class="col-4 col-form-label" >Description:</label>
+        <input formControlName="Description" class="col-4" type="text" class="form-control" [(ngModel)]="Description" name="Description"  required>
+    </div>
+    <div *ngIf="addupdate.controls['Description'].invalid && addupdate.controls['Description'].touched" class="alert alert-danger">
+        <div *ngIf="addupdate.controls['Description'].errors?.required">
+            Description is required.
+        </div>
+    </div>
+    <div>
+        <label for="ExpirationDate" class="col-4 col-form-label" >ExpirationDate:</label>
+        <input formControlName="ExpirationDate" class="col-4" type="date" class="form-control" [(ngModel)]="ExpirationDate" name="ExpirationDate" required>
+    </div>
+    <div>
+        <label for="Quantity" class="col-4 col-form-label">Quantity:</label>
+        <input formControlName="Quantity"class="col-4" type="number" class="form-control" [(ngModel)]="Quantity" name="Quantity" required>
+    </div>
+    <div>
+        <label for="InventoryType" class="col-4 col-form-label" >Inventory Type:</label>
+        <select formControlName="selectedValue" [(ngModel)]="selectedValue" name="selectedValue" class="col-6">
+            <option *ngFor="let type of TypeList" [value]="type.InventoryTypeID">{{type.Type}}</option>
+        </select>
+    </div>
+    <br>
+    <button (click)="createInventory()" *ngIf="iNventory.InventoryID==0" class="btn btn-success">
+    Add
+    </button>
+    <button (click)="updateInventory()" *ngIf="iNventory.InventoryID!=0" class="btn btn-success">
+    Update
+    </button>
+</form>
+
